@@ -1,6 +1,6 @@
 package websockets
 
-import java.net.{SocketOptions, Inet4Address, InetAddress, Socket}
+import java.net._
 import java.util.concurrent.TimeoutException
 
 import akka.actor.{ActorRef, Props, ActorSystem}
@@ -41,6 +41,10 @@ object WSRequest {
  */
 object WSServer extends App {
 
+  assert(args.length == 2, "must specify an ip and port")
+  val ip = args(0).toString
+  val port = args(1).toInt
+
   // required actorsystem and flow materializer
   implicit val system = ActorSystem("websockets")
   implicit val fm = ActorFlowMaterializer()
@@ -64,9 +68,16 @@ object WSServer extends App {
     case WSRequest(req@HttpRequest(GET, Uri.Path("/graph"), _, _, _)) => handleWith(req, Flows.graphFlow)
     case WSRequest(req@HttpRequest(GET, Uri.Path("/graphWithSource"), _, _, _)) => handleWith(req, Flows.graphFlowWithExtraSource)
     case WSRequest(req@HttpRequest(GET, Uri.Path("/stats"), _, _, _)) => handleWith(req, Flows.graphFlowWithStats(router))
-    case _: HttpRequest => HttpResponse(400, entity = "Invalid websocket request")
+    case a : HttpRequest => {
 
-  }, interface = "localhost", port = 9001)
+      println(" ******************************** invalid " + a)
+
+      HttpResponse(400, entity = "Invalid websocket request")
+
+    }
+
+//  }, interface = "172.30.0.211", port = 9001)
+}, interface = ip, port = port)
 
 
 

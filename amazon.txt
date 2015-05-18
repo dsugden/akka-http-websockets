@@ -1,0 +1,28 @@
+
+
+
+scp -i akka-scalability-key.pem /Users/dave/projects/akka-http-websockets/target/universal/akka-http-websockets-1.0.zip ubuntu@52.6.41.110:~/.
+
+websocket server nginx
+ssh -i akka-scalability-key.pem ubuntu@54.146.214.218
+worker_rlimit_nofile 65535;
+
+
+websocket server 1
+ssh -i akka-scalability-key.pem ubuntu@52.6.41.110
+scp -i akka-scalability-key.pem /Users/dave/projects/akka-http-websockets/target/universal/akka-http-websockets-1.0.zip ubuntu@52.6.41.110:~/.
+
+websocket server 2
+ssh -i akka-scalability-key.pem ubuntu@54.159.235.251
+scp -i akka-scalability-key.pem /Users/dave/projects/akka-http-websockets/target/universal/akka-http-websockets-1.0.zip ubuntu@54.159.235.251:~/.
+
+
+
+
+
+
+gatling
+ssh -i akka-scalability-key.pem ubuntu@54.159.151.4
+
+
+52.6.41.110

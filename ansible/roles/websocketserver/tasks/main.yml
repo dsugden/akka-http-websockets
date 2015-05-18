@@ -1,0 +1,17 @@
+- copy: src=akka-http-websockets-1.0.zip dest=~/. mode=u+rwx
+
+- name:  install unzip
+  apt: pkg=unzip=6.0* state=present
+
+- name: unzip app
+  shell: unzip ~/akka-http-websockets-1.0.zip
+
+- name: chmod
+  shell: chmod +x /home/vagrant/akka-http-websockets-1.0/bin/akka-http-websockets
+
+- name: run
+  shell: /home/vagrant/akka-http-websockets-1.0/bin/akka-http-websockets {{appIp}} 9001 &
+
+
+
+

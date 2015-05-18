@@ -1,0 +1,7 @@
+- name: ensure apt cache is up to date, install nginx
+  apt: name=nginx update_cache=yes
+
+- copy: src=nginx.conf dest=/etc/nginx/nginx.conf
+
+- command: service nginx restart
+
